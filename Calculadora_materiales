@@ -1,0 +1,51 @@
+def calcular_materiales(tipo_muro, m2):
+    # Valores constantes
+    materiales = {
+        'exterior_ladrillos_comunes': {'ladrillos': 60, 'cemento': 4, 'cal': 12, 'arena': 0.08},
+        'interior_ladrillos_comunes': {'ladrillos': 22, 'cemento': 2.2, 'cal': 4.34, 'arena': 0.021},
+        'exterior_ladrillos_huecos': {'ladrillos': 22, 'cemento': 1.5, 'cal': 2.8, 'arena': 0.014},
+        'interior_ladrillos_huecos': {'ladrillos': 60, 'cemento': 3, 'cal': 9, 'arena': 0.04}
+    }
+    
+    # Seleccionar el tipo de muro
+    if tipo_muro in materiales:
+        calculo = {material: cantidad * m2 for material, cantidad in materiales[tipo_muro].items()}
+        return calculo
+    else:
+        return None
+
+def main():
+    print("Bienvenido a la calculadora de materiales para construcción de muros")
+    print("Seleccione el tipo de muro:")
+    print("1. Muro exterior de ladrillos comunes")
+    print("2. Muro interior de ladrillos comunes")
+    print("3. Muro exterior de ladrillos huecos")
+    print("4. Muro interior de ladrillos huecos")
+    
+    opcion = input("Ingrese el tipo de muro a construir: ")
+    m2 = float(input("Ingrese la superficie a construir en m2: "))
+    
+    # Mapear opción a tipo de muro
+    tipo_muro = {
+        '1': 'exterior_ladrillos_comunes',
+        '2': 'interior_ladrillos_comunes',
+        '3': 'exterior_ladrillos_huecos',
+        '4': 'interior_ladrillos_huecos'
+    }.get(opcion, None)
+    
+    if tipo_muro:
+        materiales = calcular_materiales(tipo_muro, m2)
+        if materiales:
+            print(f"\nTipo de muro a construir: {tipo_muro.replace('_', ' ').capitalize()}")
+            print("Ud. necesitará:")
+            print(f"- {materiales['ladrillos']} unidades de ladrillos")
+            print(f"- {materiales['cemento']} kg de cemento")
+            print(f"- {materiales['cal']} kg de cal")
+            print(f"- {materiales['arena']} m³ de arena")
+        else:
+            print("Tipo de muro no válido.")
+    else:
+        print("Opción no válida.")
+        
+if __name__ == "__main__":
+    main()
